@@ -1,5 +1,6 @@
 import ws, { WebSocketServer } from 'ws';
-/* import app from './app.js'
+import app from './app.js'
+/* 
 import { connectDB } from './db.js'
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './config.js';
