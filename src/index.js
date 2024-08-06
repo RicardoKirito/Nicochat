@@ -1,17 +1,17 @@
 import ws, { WebSocketServer } from 'ws';
-import app from './app.js'
+/* import app from './app.js'
 import { connectDB } from './db.js'
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './config.js';
 import { addMessage } from './controllers/message.controller.js';
 import { upLoadFile, uploadProfilePicture } from './libs/uploadFile.js';
-import { updateUserPicture } from './controllers/auth.controller.js';
+import { updateUserPicture } from './controllers/auth.controller.js'; */
 
 
 connectDB();
 const server = app.listen(4000)
 console.log('server on port', 4000)
-
+/* 
 const wss = new WebSocketServer({server});
 
 wss.on('connection', (con, req)=>{
@@ -112,3 +112,4 @@ wss.on('connection', (con, req)=>{
 
 
 
+ */
