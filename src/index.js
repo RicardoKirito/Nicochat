@@ -8,7 +8,7 @@ import { upLoadFile, uploadProfilePicture } from './libs/uploadFile.js';
 import { updateUserPicture } from './controllers/auth.controller.js'; */
 
 
-connectDB();
+//connectDB();
 const server = app.listen(4000)
 console.log('server on port', 4000)
 /* 
