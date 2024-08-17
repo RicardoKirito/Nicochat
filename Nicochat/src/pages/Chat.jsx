@@ -212,7 +212,6 @@ export default function Chat() {
         Obv.current = ObserveMessages("messages", seenMessage);
     }, [ws]);
     function connectToServer() {
-
         try {
 
             if (!ws) {

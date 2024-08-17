@@ -5,6 +5,5 @@ import './style.css'
 import './animations.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-
     <App />
 )
