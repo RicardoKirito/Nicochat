@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
+    "build": "npm install && npm install --prefix Nicochat && npm run build --prefix Nicochat",
+    "dev": "nodemon ./backend/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
