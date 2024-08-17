@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "yarn && yarn --prefix Nicochat && npm run build --prefix Nicochat",
+    "build": "yarn && npm install --prefix Nicochat && npm run build --prefix Nicochat",
     "dev": "nodemon ./backend/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
