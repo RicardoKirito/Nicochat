@@ -1,0 +1,108 @@
+import ws, { WebSocketServer } from 'ws';
+import app from './app.js'
+
+import { connectDB } from './db.js'
+import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from './config.js';
+import { addMessage } from './controllers/message.controller.js';
+import { upLoadFile, uploadProfilePicture } from './libs/uploadFile.js';
+import { updateUserPicture } from './controllers/auth.controller.js'; 
+
+const server = app.listen(4000)
+console.log('server on port', 4000)
+
+connectDB();
+const wss = new WebSocketServer({server});
+
+wss.on('connection', (con, req)=>{
+
+    function notifyOnelinePeople(){
+        
+        [...wss.clients].forEach(client=>{
+            client.send(JSON.stringify({
+                online: [...wss.clients].map(c=>({userid: c.userid, username: c.username})),
+            }))
+        })
+    }
+
+    function newMessage(){
+        [...wss.clients].forEach(client=>{
+            client.send(JSON.stringify({
+                newMessage: ""}))
+        })
+    }
+    function updateMessages(message){
+        [...wss.clients].forEach(client=>{
+            client.send(JSON.stringify({
+                updateMessage: message.update, body: message.body, state: message.state, updater: con.userid}))
+            })
+        }
+        
+        con.isAlive = true;
+    con.aliveConfirm = setInterval(()=>{
+        con.ping()
+        con.killtimer = setTimeout(()=>{
+            con.isAlive = false;
+            con.terminate();
+            clearInterval(con.aliveConfirm)
+            notifyOnelinePeople()
+        }, 1000)
+    }, 5000)
+
+    con.on("pong", ()=>{
+        clearTimeout(con.killtimer)
+    })
+
+    const cookie = req.headers.cookie;
+    if(cookie){
+        const tokenString = cookie.split(';').find(str=> str.trim().startsWith('token'));
+        if(tokenString){
+            const token = tokenString.replace("token=",'').trim();
+            if(token){
+                jwt.verify(token, JWT_SECRET, {}, (err, user)=>{
+                    if(err) throw err;
+                    con.userid = user.id;
+                    con.username = user.username
+                })
+            }
+        } 
+        notifyOnelinePeople() 
+    } 
+
+    con.on('message', async (msg)=>{
+
+        const message = JSON.parse(msg)
+        const {to, body, file, chatid, update, profilePicture} = message;
+        let filename = null;
+        if(profilePicture){
+            filename = uploadProfilePicture(profilePicture.id, profilePicture.file);
+            updateUserPicture(profilePicture.id, filename.fileName)
+        }
+        if(file){
+            filename = upLoadFile(file, chatid).filename
+        }
+        if(chatid && (body || file)){
+            const messageDB =  await addMessage({
+                    chatid,
+                    from: con.userid,
+                    to,
+                    body,
+                    file: filename,
+                    username: con.username,
+                    state: "sent",
+                    
+            });
+            newMessage();
+            [...wss.clients]
+                .filter(c=> c.userid === to || c.userid === con.userid)
+                .forEach(c=> c.send(JSON.stringify(messageDB)));
+        }
+        if(update){
+            updateMessages(message);
+        }
+
+        
+
+    })
+});
+

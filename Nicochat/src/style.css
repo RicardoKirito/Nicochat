@@ -1,0 +1,907 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    transition: all 0.2s ease-in-out;
+    scrollbar-color: rgb(var(--backgroundL3)) transparent;
+    scrollbar-width: thin;
+}
+
+:root {
+    /*||z-Index Priority levels*/
+    --z-index-6: 100;
+    --z-index-5: 80;
+    --z-index-4: 60;
+    --z-index-3: 40;
+    --z-index-2: 20;
+    --z-index-1: 10;
+    /*|| Show Settings helper*/
+    --profileSettingsOpCl: 0% 100%;
+    --profileSettingsShow: none;
+    --color5: 236, 240, 241;
+    --color4: 189, 195, 199;
+    --color3: 112, 128, 144;
+    --color2: 189, 195, 199;
+    --color1: 255, 255, 255;
+    --backgroundL1: 18, 18, 18;
+    --backgroundL2: 44, 44, 44;
+    --backgroundL3: 176, 176, 176;
+    --backgroundL4: 18, 18, 18;
+    --backgroundL5: 30, 38, 38;
+    --higthlightL: 30, 144, 255;
+    /*|| Ligth color palette  --color5: 236, 240, 241;
+    --color4: 189, 195, 199;
+    --color3: 127, 140, 141;
+    --color2:  44, 62, 80;
+    --color1: 20, 20, 20;
+    --backgroundL1: 236, 240, 241;
+    --backgroundL2: 189, 195, 199;
+    --backgroundL3: 127, 140, 141;
+    --backgroundL4: 44, 62, 80;
+    --backgroundL5: 64, 82, 100;
+    --higthlightL: 52, 152, 219;
+    */
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --color5: 236, 240, 241;
+        --color4: 44, 62, 80;
+        --color3: 127, 140, 141;
+        --color2: 44, 62, 80;
+        --color1: 20, 20, 20;
+        --backgroundL1: 236, 240, 241;
+        --backgroundL2: 189, 195, 199;
+        --backgroundL3: 127, 140, 141;
+        --backgroundL4: 236, 240, 241;
+        --backgroundL5: 164, 182, 200;
+        --higthlightL: 52, 152, 219;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /*|| Dark color Palette    */
+        --color5: 236, 240, 241;
+        --color4: 189, 195, 199;
+        --color3: 112, 128, 144;
+        --color2: 189, 195, 199;
+        --color1: 255, 255, 255;
+        --backgroundL1: 18, 18, 18;
+        --backgroundL2: 44, 44, 44;
+        --backgroundL3: 176, 176, 176;
+        --backgroundL4: 18, 18, 18;
+        --backgroundL5: 30, 30, 35;
+        --higthlightL: 30, 144, 255;
+    }
+}
+
+.lighty {
+    --color5: 236, 240, 241;
+    --color4: 44, 62, 80;
+    --color3: 127, 140, 141;
+    --color2: 44, 62, 80;
+    --color1: 20, 20, 20;
+    --backgroundL1: 236, 240, 241;
+    --backgroundL2: 189, 195, 199;
+    --backgroundL3: 127, 140, 141;
+    --backgroundL4: 236, 240, 241;
+    --backgroundL5: 164, 182, 200;
+    --higthlightL: 52, 152, 219;
+}
+
+.default {
+    --color5: 236, 240, 241;
+    --color4: 189, 195, 199;
+    --color3: 127, 140, 141;
+    --color2: 44, 62, 80;
+    --color1: 20, 20, 20;
+    --backgroundL1: 236, 240, 241;
+    --backgroundL2: 189, 195, 199;
+    --backgroundL3: 127, 140, 141;
+    --backgroundL4: 44, 62, 80;
+    --backgroundL5: 64, 82, 100;
+    --higthlightL: 52, 152, 219;
+}
+
+.dark {
+    --color5: 236, 240, 241;
+    --color4: 189, 195, 199;
+    --color3: 112, 128, 144;
+    --color2: 189, 195, 199;
+    --color1: 255, 255, 255;
+    --backgroundL1: 18, 18, 18;
+    --backgroundL2: 44, 44, 44;
+    --backgroundL3: 176, 176, 176;
+    --backgroundL4: 18, 18, 18;
+    --backgroundL5: 30, 30, 35;
+    --higthlightL: 30, 144, 255;
+}
+
+.formContainer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(var(--backgroundL5));
+}
+
+.formContainer .formWrapper {
+    border-radius: 20px;
+    padding: 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    color: rgb(var(--color1));
+    border: 1px solid rgb(var(--higthlightL), 0.5);
+    background-color: rgb(var(--backgroundL1));
+}
+
+.formContainer .formWrapper .Logo {
+    font-weight: 600;
+    color: rgb(var(--higthlightL));
+}
+
+.formContainer .formWrapper .error {
+    color: salmon;
+}
+
+.formContainer .formWrapper form {
+    display: flex;
+    gap: 14px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 60px;
+}
+
+.formContainer .formWrapper form label {
+    color: rgb(var(--color2));
+}
+
+.formContainer .formWrapper form .preview {
+    width: 100px;
+    height: 100px;
+    overflow: clip;
+    background-color: rgb(var(--backgroundL2));
+    border-radius: 50%;
+    border: 1px solid rgb(var(--backgroundL3));
+}
+
+.formContainer .formWrapper form .preview img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.formContainer .formWrapper form input {
+    width: 100%;
+    padding-left: 10px;
+    height: 2rem;
+    border: 1px solid rgb(var(--higthlightL), 0.8);
+    border-radius: 10px;
+    outline-color: rgb(var(--higthlightL));
+    background-color: rgb(var(--color5));
+}
+
+.formContainer .formWrapper form input::placeholder {
+    color: rgb(var(--color3));
+}
+
+.formContainer .formWrapper form button {
+    width: 100%;
+    height: 2rem;
+    color: whitesmoke;
+    background-color: rgb(var(--higthlightL), 0.8);
+    border-radius: 10px;
+    border: 2px solid rgb(var(--higthlightL));
+    cursor: pointer;
+}
+
+.formContainer .formWrapper form button:hover {
+    background-color: rgb(var(--higthlightL));
+}
+
+.chatContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(var(--backgroundL5));
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}
+
+.chatContainer .chatWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.chatContainer .left {
+    height: 100vh;
+    padding: 0.5rem;
+    overflow: clip;
+    width: 30%;
+    min-width: 20rem;
+    max-width: 350px;
+}
+
+.chatContainer .left .left-wrapper {
+    height: 100%;
+    background-color: rgb(var(--backgroundL1));
+    border-radius: 30px;
+    overflow: clip;
+    display: grid;
+    grid-template-columns: var(--profileSettingsOpCl);
+    transition: all 0.3s ease-in-out;
+    border: 1px solid rgb(var(--higthlightL), 0.5);
+}
+
+.chatContainer .left .left-wrapper .app-settings {
+    height: 100%;
+    background-color: rgb(var(--backgroundL1));
+    width: 100%;
+    visibility: hidden;
+    animation: var(--profileSettingsShow) 0.1s ease-in-out forwards;
+    color: rgb(var(--color2));
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .settings-opt {
+    user-select: none;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .settings-opt h4 {
+    margin: 0;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .settings-opt .opt {
+    padding: 8px;
+    margin-bottom: 4px;
+    border-radius: 10px;
+    background-color: rgb(var(--backgroundL2), 0.3);
+    cursor: pointer;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .settings-opt .opt .opt-show {
+    background-color: rgb(var(--backgroundL1));
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .logout-c {
+    text-align: center;
+    bottom: 0px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.chatContainer .left .left-wrapper .app-settings .settings-wrapper .logout-c .logout-b {
+    background-color: rgb(var(--higthlightL), 0.85);
+    color: rgb(var(--color5));
+    padding: 10px;
+    border: 1px solid rgb(var(--higthlightL));
+    border-radius: 15px;
+    justify-self: end;
+    margin-bottom: 1rem;
+    width: 120px;
+    align-self: center;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .menu-contacts {
+    height: 10vh;
+    background-color: rgb(var(--backgroundL4));
+    margin-bottom: 2rem;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .menu-contacts .search {
+    border: 1px solid rgb(var(--higthlightL));
+    background-color: rgb(var(--backgroundL1));
+    color: rgb(var(--backgroundL3));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .menu-contacts .search input {
+    background-color: rgb(var(--backgroundL1));
+    color: rgb(var(--backgroundL3));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .menu-contacts .search input::placeholder {
+    color: rgb(var(--backgroundL3));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts {
+    padding: 10px;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact:hover {
+    background-color: rgb(var(--higthlightL), 0.3);
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts #selected-contact {
+    background-color: rgb(var(--higthlightL), 0.8);
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts #selected-contact .last-contact-message {
+    color: rgb(var(--color5));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts #selected-contact .message-status {
+    color: rgb(var(--color5));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact {
+    border: 1px solid rgb(var(--higthlightL));
+    background-color: rgb(var(--backgroundL1));
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact .message-status {
+    position: relative;
+    color: rgb(var(--color2));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact .chat-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact .chat-info .contact-name {
+    font-size: 1.2rem;
+    color: rgb(var(--color1));
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact .chat-info .last-contact-message {
+    display: -webkit-box;
+    color: rgb(var(--color3));
+    overflow: hidden;
+    --max-lines: 2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--max-lines);
+}
+
+.chatContainer .left .left-wrapper .contacts-wrapper .contacts .contact:hover .elipsis-mn {
+    scale: 1;
+}
+
+.chatContainer .right {
+    height: 100vh;
+    display: flex;
+    width: 100%;
+    position: relative;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.chatContainer .right .conversation {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: clip;
+    background: rgb(var(--backgroundL1), 0.96);
+    border: 1px solid rgb(var(--higthlightL), 0.5);
+}
+
+.chatContainer .right .conversation .chat-info {
+    height: 10vh;
+    background-color: rgb(var(--backgroundL4));
+    padding: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(var(--backgroundL2));
+    color: rgb(var(--color4));
+}
+
+.chatContainer .right .conversation .chat-info .contact-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.chatContainer .right .conversation .chat-info .contact-info .avatar {
+    height: 3rem;
+    width: 3rem;
+    background-color: rgb(var(--backgroundL2));
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.chatContainer .right .conversation .chat-info .contact-info .contact-name {
+    cursor: pointer;
+    font-size: 1.4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding-left: 10px;
+    color: rgb(var(--color4));
+    user-select: none;
+}
+
+.chatContainer .right .conversation .chat-info .contact-info .contact-name span {
+    font-size: 1rem;
+    color: rgb(var(--higthlightL), 0.8);
+    translate: 0 -8px;
+}
+
+.chatContainer .right .conversation .chat-info .chat-options {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2rem;
+}
+
+.chatContainer .right .conversation .chat-info .chat-options div {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.chatContainer .right .conversation .messages {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.chatContainer .right .conversation .messages .sticky {
+    margin: auto;
+    margin-top: 4px;
+    position: sticky;
+    top: 4px;
+    z-index: var(--z-index-4);
+}
+
+.chatContainer .right .conversation .messages .date-devider {
+    background: rgb(var(--backgroundL2), 0.9);
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    min-width: 5rem;
+    text-align: center;
+    color: rgb(var(--color2));
+    user-select: none;
+}
+
+.chatContainer .right .conversation .messages .message {
+    width: fit-content;
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 50%;
+    padding: 3px;
+}
+
+.chatContainer .right .conversation .messages .message .file {
+    min-width: 200px;
+    height: 300px;
+}
+
+.chatContainer .right .conversation .messages .message .file img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.chatContainer .right .conversation .messages .message .message-b {
+    margin: 5px;
+    flex-grow: 1;
+}
+
+.chatContainer .right .conversation .messages .message .time {
+    font-size: 0.7rem;
+    text-align: right;
+}
+
+.chatContainer .right .conversation .messages .my-message {
+    background-color: rgb(var(--higthlightL), 0.85);
+    align-self: end;
+    margin-right: 10px;
+    color: rgb(var(--color5));
+}
+
+.chatContainer .right .conversation .messages .my-message div {
+    display: flex;
+}
+
+.chatContainer .right .conversation .messages .my-message .time {
+    text-align: end;
+}
+
+.chatContainer .right .conversation .messages .my-message:hover .elipsis-mn {
+    scale: 1;
+}
+
+.chatContainer .right .conversation .messages .contact-message {
+    background-color: rgb(var(--backgroundL2), 0.6);
+    margin-left: 10px;
+    color: rgb(var(--color2));
+}
+
+.chatContainer .right .conversation .messages .to-last {
+    visibility: hidden;
+    cursor: pointer;
+    height: 2.4rem;
+    min-width: 2.4rem;
+    display: grid;
+    place-content: center;
+    background-color: #1f4261;
+    bottom: 1rem;
+    right: 2rem;
+}
+
+.chatContainer .right .conversation .messages .to-last .new-message-count {
+    color: black;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: fit-content;
+    min-width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatContainer .right .conversation .messages .to-last svg {
+    width: 24px;
+    color: wheat;
+}
+
+.chatContainer .right .conversation .form {
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.chatContainer .right .conversation .form .form-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 4px;
+    border: 1px solid rgb(var(--higthlightL));
+    background-color: rgb(var(--backgroundL1));
+    padding-left: 10px;
+}
+
+.chatContainer .right .conversation .form .form-wrapper .input-message {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: rgb(var(--backgroundL1));
+    color: rgb(var(--color1));
+}
+
+.chatContainer .right .conversation .form .form-wrapper label {
+    color: rgb(var(--color3));
+    border-radius: 50%;
+    width: 40px;
+    text-align: center;
+    padding-top: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.chatContainer .right .conversation .form .form-wrapper label:hover {
+    color: rgb(var(--color2), 0.8);
+}
+
+.chatContainer .right .conversation .form button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5em;
+    text-align: center;
+    background-color: rgb(var(--higthlightL));
+    color: rgb(var(--color5));
+    border: none;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chatContainer .right .conversation .form svg {
+    width: 2rem;
+}
+
+.no-selected-chat {
+    color: rgb(var(--color5));
+    display: grid;
+    place-content: center;
+    height: 100vh;
+}
+
+.close-btn {
+    height: 2rem;
+    display: block;
+    cursor: pointer;
+    width: 2rem;
+}
+
+.close-btn svg {
+    width: 1.8rem;
+}
+
+.avatar {
+    text-align: center;
+    min-width: 35px;
+    min-height: 35px;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(var(--backgroundL2));
+    border-radius: 50%;
+    overflow: clip;
+    cursor: pointer;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.float-menu {
+    position: absolute;
+    background-color: rgb(var(--backgroundL4));
+    display: flex;
+    flex-direction: column;
+    z-index: var(--z-index-5);
+    width: 150px;
+    border-radius: 15px;
+    scale: 0;
+    top: 50%;
+    right: 5px;
+    box-shadow: 3px 10px 8px rgb(var(--backgroundL5), 0.5);
+    overflow: hidden;
+}
+
+.float-menu .fl-mn-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.float-menu .fl-mn-ul li:hover {
+    background-color: rgb(var(--backgroundL3), 0.3);
+}
+
+.float-menu .fl-mn-ul .fl-mn-btn {
+    padding: 12px;
+    padding-left: 15px;
+    color: rgb(var(--color4));
+    width: fit-content;
+}
+
+.h-fit {
+    height: fit-content;
+}
+
+.elipsis-mn {
+    height: fit-content;
+    border-radius: 50%;
+    justify-self: end;
+    scale: 0;
+    color: rgb(var(--color1));
+}
+
+.elipsis-mn:hover {
+    background-color: rgb(var(--backgroundL1), 0.4);
+}
+
+.settings-btn {
+    stroke: rgb(var(--color4));
+    height: 2rem;
+    width: 2rem;
+}
+
+.settings-btn:hover {
+    stroke: rgb(var(--higthlightL));
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.no-show {
+    display: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid h3 {
+    grid-column: span 3;
+}
+
+.grid div {
+    width: 100%;
+    height: 100%;
+}
+
+.grid div img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+img {
+    cursor: pointer;
+}
+
+.new-message-count {
+    background-color: rgb(var(--higthlightL), 0.8);
+    padding: 8px;
+    width: fit-content;
+    min-width: 24px;
+    height: 24px;
+    text-align: center;
+    border-radius: 20px;
+    color: rgb(var(--color5));
+}
+
+.overflowtext {
+    word-break: break-word;
+}
+
+.settings {
+    min-width: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(var(--backgroundL4));
+    border-radius: 30px;
+    color: rgb(var(--color4));
+    text-align: center;
+    padding-top: 1.5rem;
+    border: 1px solid rgb(var(--higthlightL), 0.5);
+}
+
+.upload-image {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8549019608), rgba(42, 41, 41, 0.7529411765));
+    backdrop-filter: blur(5px);
+    height: 100vh;
+    position: absolute;
+    width: inherit;
+    padding: 3rem;
+    display: flex;
+    z-index: var(--z-index-6);
+    flex-direction: column;
+}
+
+.upload-image .controls {
+    width: 2rem;
+    align-self: end;
+}
+
+.upload-image .preview-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    place-content: center;
+}
+
+.upload-image .preview-container img {
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: 0% 0%;
+    max-height: 80%;
+    max-width: 100%;
+    align-self: center;
+    justify-self: center;
+    background-color: rgb(var(--backgroundL1));
+}
+
+.upload-image .preview-container .card {
+    max-width: min(50vw, 600px) !important;
+}
+
+input {
+    outline: 0;
+}
+
+.loader {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgb(var(--higthlightL), 0.8);
+    --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+.settings-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    color: rgb(var(--color4));
+    stroke: rgb(var(--color4));
+}
+
+.settings-profile:hover {
+    background-color: rgb(var(--backgroundL3), 0.4);
+}
+
+.text-outline-highlight {
+    color: rgb(var(--higthlightL));
+    border: 1px solid rgb(var(--higthlightL));
+}
+
+.text-outline-highlight:hover {
+    color: rgb(var(--color5));
+    background-color: rgb(var(--higthlightL));
+}
+
+.text-highlight {
+    color: rgb(var(--color5));
+    background-color: rgb(var(--higthlightL));
+}
+
+.text-highlight:hover {
+    color: rgb(var(--color5));
+    background-color: rgb(var(--higthlightL), 0.8);
+}
+
+.button-outline-highlight {
+    color: rgb(var(--higthlightL));
+    cursor: pointer;
+    width: 25px;
+    height: fit-content;
+}
+
+.button-outline-highlight:hover {
+    color: rgb(var(--higthlightL), 0.5);
+}
+
+.emojie {
+    border-radius: 8px;
+    font-size: 1.5rem;
+    padding: 1px;
+    color: rgb(var(--color2));
+    cursor: pointer;
+}
+
+.emojie:hover {
+    background-color: rgb(var(--higthlightL), 0.3);
+}
