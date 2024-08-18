@@ -6,7 +6,7 @@ import cors from 'cors';
 import messageRoutes from './routes/message.routes.js'
 import { getDirname } from './libs/dirname.js';
 import chatRoutes from './routes/chat.routes.js'
-
+import path from 'node:path'
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
@@ -19,4 +19,9 @@ app.use("/api",authRoutes)
 app.use("/api",messageRoutes)
 app.use("/api", chatRoutes)
 app.use("/api/uploads", express.static(getDirname(import.meta.url) + '/uploads') );
+
+app.use(express.static(__dirname, "Nicochat/dist"))
+app.get("*", (req, res)=>{
+    res.sendFile(path.join(__dirname, "Nicochat", "dist", "index.html"))
+})
 export default app;
