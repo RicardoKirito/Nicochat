@@ -5,7 +5,7 @@ import { uniqueBy } from "../libs/uniqueBy.js"
 import { useMessage } from '../context/MessageContext.jsx';
 import Message from '../components/Message.componen.jsx';
 import { useChat } from '../context/ChatContext.jsx';
-import { ContactComponent } from '../components/contact.component.jsx';
+import { ContactComponent } from '../components/Contact.component.jsx';
 import { ObserveMessages } from '../libs/observer.js';
 import { lastMessageAgo } from "../libs/message_time.js";
 import { GalleryComponent } from '../components/Gallery.component.jsx';
@@ -215,7 +215,7 @@ export default function Chat() {
         try {
 
             if (!ws) {
-                const ws = new WebSocket('ws://nicochat-api.onrender.com')
+                const ws = new WebSocket('ws://localhost:4000/api')
                 setWs(ws);
 
                 ws.addEventListener('message', messageHandler)
