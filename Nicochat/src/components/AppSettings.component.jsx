@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { showMenu } from "../libs/Show_menu";
 import { findParent, setTheme } from "../libs/utils";
-import { ChangePasswordComponent } from "./changePassword.component";
+import { ChangePasswordComponent } from "./ChangePassword.component";
 import { Menu } from "./Menu.component";
 
 export function AppSettings(props) {
