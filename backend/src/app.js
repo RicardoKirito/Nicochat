@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(morgan('dev'));
 app.use(cors({
-    origin: "http://localhost:4173",
+    origin: "",
     credentials: true,
 }))
 app.use("/api",authRoutes)
