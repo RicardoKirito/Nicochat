@@ -7,6 +7,8 @@ import messageRoutes from './routes/message.routes.js'
 import { getDirname } from './libs/dirname.js';
 import chatRoutes from './routes/chat.routes.js'
 import path from 'node:path'
+
+const __dirname = getDirname(import.meta.url)
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
