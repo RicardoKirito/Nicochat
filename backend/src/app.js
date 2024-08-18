@@ -24,6 +24,6 @@ app.use("/api/uploads", express.static(getDirname(import.meta.url) + '/uploads')
 
 app.use(express.static(path.join(__dirname, "../../Nicochat/dist")))
 app.get("*", (req, res)=>{
-    res.sendFile(path.join(__dirname, "Nicochat", "dist", "index.html"))
+    res.sendFile(path.join(__dirname, "../../Nicochat/dist", "index.html"))
 })
 export default app;
