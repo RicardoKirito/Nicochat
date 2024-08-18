@@ -1,4 +1,4 @@
-import axios from "/node_modules/.vite/deps/axios.js?v=8d77614b";
+import axios from "axios";
 
 const ax = axios.create({
     baseURL: 'http://localhost:4000/api',
