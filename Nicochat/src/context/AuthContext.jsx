@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
             delete user.file;
             const res = await registerRequest(user);
                if (file) {
-                const ws = new WebSocket('ws://localhost:4000/api');
+                const ws = new WebSocket(`ws://${window.location.host}/api`);
                 ws.onopen = () => {
                     ws.send(JSON.stringify({
                         profilePicture: { id: res.data.id, file }

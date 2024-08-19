@@ -215,7 +215,7 @@ export default function Chat() {
         try {
 
             if (!ws) {
-                const ws = new WebSocket('ws://localhost:4000/api')
+                const ws = new WebSocket(`ws://${window.location.host}/api`)
                 setWs(ws);
 
                 ws.addEventListener('message', messageHandler)
