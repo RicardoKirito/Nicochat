@@ -3,6 +3,8 @@ import fs from 'node:fs'
 import {Buffer} from 'buffer'
 import { getDirname } from './dirname.js';
 import path from 'path';
+import imgModel from '../models/img.model.js';
+
 const __dirname = getDirname(import.meta.url)
 
 export async function getChatFiles(folderName){
@@ -11,9 +13,9 @@ export async function getChatFiles(folderName){
     return []
 }
 
-export function upLoadFile(file, foldersName){
+export async function upLoadFile(file, foldersName){
     
-    const route = __dirname.replace('libs','uploads') + `\\chat\\${foldersName}`;
+    /* const route = __dirname.replace('libs','uploads') + `\\chat\\${foldersName}`;
 
     if(!fs.existsSync(route)){
         fs.mkdir(path.join(route, ''), (err)=>{
@@ -22,20 +24,22 @@ export function upLoadFile(file, foldersName){
             }else{
                 console.log("Dir created ", route)
             }
-        })
-
+        }) 
+        
+        
     }
+    */
 
     const parts = file.info.split('.')
     const ext = parts[parts.length -1]
     const filename = `Nico-Chat-${Date.now()}.${ext}`;
-    const paths = route +"\\"+ filename;
+    const path = ""
+    await imgModel.create({
+        folder: `chat/${foldersName}`,
+        img: file.data
+    })
 
-    const buffer = Buffer.from(file.data.split(',')[1], 'base64');
-
-    fs.writeFile(paths, buffer, ()=>{
-        console.log('file saved: '+paths)
-    });
+    
     
     return {
         paths,

@@ -383,7 +383,7 @@ export default function Chat() {
                                         <Emojie setMessage={setMessage}></Emojie>
                                         <span className='emojie' onClick={e=>e.target.previousElementSibling.classList.toggle('no-show')}>☺️</span>
                                         <input type="text" className="input-message" name='message' placeholder='type your message' onChange={e => setMessage(e.target.value)} value={message} autoComplete='off' />
-                                        <input hidden type="file" name="file" id="file" title='upload a file' onChange={sendFile} />
+                                        <input hidden type="file" accept=".jpeg,.jpg,.png" name="file" id="file" title='upload a file' onChange={sendFile} />
                                         {(!id) && (<label htmlFor="file">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-paperclip"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>
                                         </label>)}

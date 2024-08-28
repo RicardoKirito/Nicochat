@@ -50,7 +50,7 @@ export function Register(){
             <div className="preview">
               <img src={imgPreview} ></img>
             </div>
-            <input type="file" hidden name="image" id="image" onChange={renderPriview} />
+            <input type="file" accept=".jpeg,.jpg,.png" hidden name="image" id="image" onChange={renderPriview} />
             <label htmlFor="image">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width={24} viewBox="0 0 24 24" fill="currentColor" className="size-6">
