@@ -13,7 +13,7 @@ export const getMessages = async (req, res) => {
 
 export const addMessage = async (message) => {
 
-  var add = await Message.create({
+  const add = await Message.create({
     from: message.from,
     body: message.body,
     file: null,
@@ -27,10 +27,11 @@ export const addMessage = async (message) => {
      img: message.file,
      messageid: add._id
    });
-   add = await Message.updateOne(
+   await Message.updateOne(
      { _id: add._id },
      { $set: {file: imgAdd._id }}
    );
+   add.file = imgAdd
  }
 
 
@@ -63,19 +64,20 @@ export const addMessage = async (message) => {
 //Update the new messages for the receiver
 async function unreadMessages(opt, valor) {
   const count = await userModel.findOne(  { _id: opt.id, "contacts.chat_id": opt.chatid }, {'contacts.$': 1, _id: 0})
-  if(count.contacts[0].unreadMessages-1<0 && valor===-1){
-
-    await userModel.updateOne(
-      { _id: opt.id, "contacts.chat_id": opt.chatid },
-      { $set: { "contacts.$.unreadMessages": 0 } }
-    );
-  }else{
-    await userModel.updateOne(
-      { _id: opt.id, "contacts.chat_id": opt.chatid },
-      { $inc: { "contacts.$.unreadMessages": valor } }
-    );
-
-  } 
+  if(count)
+    {
+      if (count.contacts[0].unreadMessages - 1 < 0 && valor === -1) {
+        await userModel.updateOne(
+          { _id: opt.id, "contacts.chat_id": opt.chatid },
+          { $set: { "contacts.$.unreadMessages": 0 } }
+        );
+      } else {
+        await userModel.updateOne(
+          { _id: opt.id, "contacts.chat_id": opt.chatid },
+          { $inc: { "contacts.$.unreadMessages": valor } }
+        );
+      }
+    }
 }
 export const deleteMessage = async (req, res) => {
   const deletedMessage = await Message.updateOne(
