@@ -34,7 +34,7 @@ export async function upLoadFile(file, foldersName){
     const ext = parts[parts.length -1]
     const filename = `Nico-Chat-${Date.now()}.${ext}`;
     const path = ""
-    await imgModel.create({
+    const add = await imgModel.create({
         folder: `chat/${foldersName}`,
         img: file.data
     })

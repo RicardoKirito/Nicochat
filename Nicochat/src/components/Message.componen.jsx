@@ -4,7 +4,7 @@ import { Menu } from "./Menu.component";
 import { showMenu } from "../libs/Show_menu";
 
 export default function Message(props){
-    const {msg, setImagePreview, filesPath, user, refresh, setId, setMessage} = props; 
+    const {msg, setImagePreview, user, refresh, setId, setMessage} = props; 
     const {deleteMessage} = useMessage();
     const Menuoptions = [];
     const currentTime = new Date();
@@ -44,9 +44,10 @@ export default function Message(props){
                    <Menu options={Menuoptions}/>
                 </div>
 
-                {msg.file && (
-                    <div className="file" onClick={()=> setImagePreview(filesPath+`chat/${msg.chatid}/`+msg.file)}>
-                        <img src={filesPath+`chat/${msg.chatid}/`+msg.file} alt={msg.file} />
+                
+                {msg?.file?.img && (
+                    <div className="file" onClick={()=> setImagePreview(msg?.file?.img)}>
+                        <img src={msg?.file?.img} alt={"img"} />
                     </div>
                 )}
 

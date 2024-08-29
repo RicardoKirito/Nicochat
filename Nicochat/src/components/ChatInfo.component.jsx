@@ -2,7 +2,7 @@ import { useChat } from "../context/ChatContext";
 
 export function ChatInfo(props) {
 
-    const {onlinePeople, selectedChat, filesPath, setSelectedChat, setChatFiles, setImageGallery, setChatSettings} = props
+    const {onlinePeople, selectedChat, setSelectedChat, setChatFiles, setImageGallery, setChatSettings} = props
     const {getAllChatFiles} = useChat()
 
     async function getChatFiles(id) {
@@ -14,7 +14,7 @@ export function ChatInfo(props) {
             <div className="contact-info" onClick={() => setChatSettings(1)}>
                 <div className="avatar">
                     {(selectedChat.picture) && (
-                        <img src={`${filesPath}/profile/${selectedChat.picture}`} />
+                        <img src={selectedChat.picture} />
                     )}
                 </div>
                 <div className="contact-name">

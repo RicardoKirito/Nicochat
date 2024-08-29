@@ -3,7 +3,7 @@ import { showMenu } from "../libs/Show_menu";
 import { Menu } from "./Menu.component";
 
 export function ContactsMenu(props) {
-    const { filesPath, searchChat, logoutHandler} = props
+    const {searchChat, logoutHandler} = props
     const {user} = useAuth()
     function showSettings(){
         const theRoot = document.querySelector(":root");
@@ -24,7 +24,7 @@ export function ContactsMenu(props) {
                 </div>
                 <div className='avatar' title={user.username} onClick={() => showSettings()}>
                     {(user.picture) && (
-                        <img src={`${filesPath}/profile/${user?.picture}`} />
+                        <img src={user?.picture} />
                     )} 
                 </div>
                 <div id="parent" title='settings' className='p-1 settings-profile' onClick={e => showMenu(e)} >

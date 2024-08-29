@@ -1,13 +1,13 @@
 import ws, { WebSocketServer } from 'ws';
+import {Buffer} from 'buffer'
 import app from './app.js'
-
 import { connectDB } from './db.js'
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './config.js';
 import { addMessage } from './controllers/message.controller.js';
-import { upLoadFile, uploadProfilePicture } from './libs/uploadFile.js';
 import { updateUserPicture } from './controllers/auth.controller.js'; 
-
+import { updateUserPicture } from './controllers/auth.controller.js'; 
+import { imageOptimaze } from './libs/imgoptimaze.js';
 const server = app.listen(4000)
 console.log('server on port', 4000)
 
@@ -75,11 +75,15 @@ wss.on('connection', (con, req)=>{
         const {to, body, file, chatid, update, profilePicture} = message;
         let filename = null;
         if(profilePicture){
-            filename = uploadProfilePicture(profilePicture.id, profilePicture.file);
-            updateUserPicture(profilePicture.id, filename.fileName)
+            
+            const buffer = Buffer.from(profilePicture.file.data.split(',')[1], 'base64')
+            const optimized = await imageOptimaze(buffer, 300)
+            updateUserPicture(profilePicture.id, optimized)
         }
         if(file){
-            filename = upLoadFile(file, chatid).filename
+            const buffer = Buffer.from(file.data.split(',')[1], 'base64')
+            const optimized = await imageOptimaze(buffer, 700)
+            filename = optimized;
         }
         if(chatid && (body || file)){
             const messageDB =  await addMessage({

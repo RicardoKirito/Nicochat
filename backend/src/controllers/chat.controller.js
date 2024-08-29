@@ -1,7 +1,7 @@
 import { getChatFiles } from "../libs/uploadFile.js";
 import chatModel from "../models/chat.model.js"
 import userModel from "../models/user.model.js";
-
+import imgModel from "../models/img.model.js";
 
 export const getChat= async (req, res)=>{
     
@@ -13,9 +13,9 @@ export const getChat= async (req, res)=>{
 
 }
 export const getAllChatFiles = async (req, res)=>{
-
-   const list = await getChatFiles(req.params.id)
-   res.json(list)
+    const list = await imgModel.find({folder: `chat/${req.params.id}`}, {folder:0, messageid: 0, _id:0});
+    res.json(list)
+    
 }
 export const createChat = async (req, res)=>{
     const myId = req.user.id,

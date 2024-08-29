@@ -1,5 +1,5 @@
 export function ChatSettings(props) {
-    const { selectedChat, setChatSettings, filesPath,  setImagePreview, addNickname } = props
+    const { selectedChat, setChatSettings,  setImagePreview, addNickname } = props
     return (
         <div className='settings px-3'>
             <div className='d-flex justify-content-around align-items-center'>
@@ -16,7 +16,7 @@ export function ChatSettings(props) {
             <div className='user-info d-flex flex-column align-items-center mt-4'>
                 <div className='avatar' style={{ width: "200px", height: "200px" }}>
                     {(selectedChat.picture) && (
-                        <img src={`${filesPath}/profile/${selectedChat.picture}`} onClick={() => setImagePreview(`${filesPath}/profile/${selectedChat.picture}`)} />
+                        <img src={selectedChat.picture} onClick={() => setImagePreview(selectedChat.picture)} />
                     )}
                 </div>
                 <div className='d-flex justify-content-center align-items-center w-100'>

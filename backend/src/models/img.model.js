@@ -8,6 +8,8 @@ const ImgSchema = new mongoose.Schema({
     img: {
         type: String, 
         require: true,
-    }
-})
+    },
+    messageid:  {type: mongoose.Types.ObjectId, required: true, ref:'Message'}, 
+
+},{timestamps: true});
 export default mongoose.model("Img", ImgSchema)

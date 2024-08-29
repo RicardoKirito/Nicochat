@@ -3,10 +3,11 @@ import { showMenu } from "../libs/Show_menu";
 import { findParent, setTheme } from "../libs/utils";
 import { ChangePasswordComponent } from "./ChangePassword.component";
 import { Menu } from "./Menu.component";
+import { useEffect } from "react";
 
 export function AppSettings(props) {
 
-    const { filesPath, setImagePreview, logoutHandler, ws } = props
+    const { setImagePreview, logoutHandler, ws , refresh} = props
     const { user } = useAuth()
     function hiddeSettings() {
 
@@ -14,7 +15,7 @@ export function AppSettings(props) {
         theRoot.style.setProperty("--profileSettingsShow", "opacityandhidde");
         theRoot.style.setProperty("--profileSettingsOpCl", "0% 100%");
     }
-
+    useEffect(()=>{}, [user.picture])
     function choosePicture(e){
         findParent(e.target, "parent").querySelector("#image").click()
     }
@@ -30,7 +31,8 @@ export function AppSettings(props) {
           ws.send(JSON.stringify({
             profilePicture: { id: user.id, file }
         }))
-        location.reload();
+        user.picture = file.data;
+        refresh()
         }
         
       }
@@ -51,11 +53,11 @@ export function AppSettings(props) {
                     <div className="position-relative" style={{ width: "fit-content" }} id="parent">
                         <figure className='avatar' style={{ width: "100px", height: "100px" }}  onClick={e => showMenu(e)}>
                             {(user.picture) && (
-                                <img src={`${filesPath}/profile/${user?.picture}`} />
+                                <img src={user?.picture} />
                             )}
                         </figure>
                         <Menu options={[
-                            user?.picture?{ name: "View Picture", action() {setImagePreview(`${filesPath}/profile/${user.picture}`) } }:{},
+                            user?.picture?{ name: "View Picture", action() {setImagePreview(user?.picture) } }:{},
                             { name: `${user?.picture?"Change Picture":"Add a picture"}`, action(e) { choosePicture(e) } }
 
                         ]}></Menu>

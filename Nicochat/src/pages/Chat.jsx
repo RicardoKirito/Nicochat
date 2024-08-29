@@ -191,13 +191,21 @@ export default function Chat() {
             return
         }
 
-        ws.send(JSON.stringify({
-            body: message,
-            file,
-            to: selectedChat.to,
-            chatid: selectedChat.id
+        try {
+
+            ws.send(JSON.stringify({
+                body: message,
+                file,
+                to: selectedChat.to,
+                chatid: selectedChat.id
+            }
+            ))
+        }catch(erro){
+            if(erro){
+                connectToServer()
+                sendMessage(event)
+            }
         }
-        ))
         setMessage('');
         setFile(null)
         setImagePreview(null)
@@ -309,7 +317,7 @@ export default function Chat() {
                     <NicknameComponent newNickname={newNickname} selectedChat={selectedChat} setNewNickname={setNewNickname} addNickname={addNickname}></NicknameComponent>
                 )}
                 {(imageGallery) && (
-                    <GalleryComponent files={ChatFiles} showGallery={setImageGallery} filepath={filesPath} chatid={selectedChat.id} setImage={setImagePreview}></GalleryComponent>
+                    <GalleryComponent files={ChatFiles} showGallery={setImageGallery} chatid={selectedChat.id} setImage={setImagePreview}></GalleryComponent>
                 )}
                 {(imagePreview) && (
                     <div className='upload-image' >
@@ -330,10 +338,10 @@ export default function Chat() {
                 <div className='left'>
                     <div className='left-wrapper'>
 
-                        <AppSettings  filesPath={filesPath} setImagePreview={setImagePreview} ws={ws} logoutHandler={logoutHandler}></AppSettings>
+                        <AppSettings  refresh={Chats} setImagePreview={setImagePreview} ws={ws} logoutHandler={logoutHandler}></AppSettings>
                         <div className='contacts-wrapper'>
 
-                            <ContactsMenu filesPath={filesPath} searchChat={searchChat} logoutHandler= {logoutHandler}></ContactsMenu>
+                            <ContactsMenu  searchChat={searchChat} logoutHandler= {logoutHandler}></ContactsMenu>
                             <div className="contacts overflowtext">
                                 {searchResult.map((chat, i) => (
 
@@ -343,7 +351,7 @@ export default function Chat() {
                                                 setSelectedChat({ id: chat.chat_id._id, reset: chat.username, username: chat.nickname || chat.username, to: chat?.userid?._id, picture: chat?.userid?.picture || chat?.picture, email:  chat?.userid?.email || chat?.email})
                                                 : addToChat(chat)
                                         }}>
-                                        <ContactComponent chat={chat} chats={Chats} filesPath={filesPath} id={chat.chat_id?._id} selectedChat={selectedChat} user={user} setSelectedChat={setSelectedChat} ></ContactComponent>
+                                        <ContactComponent chat={chat} chats={Chats} id={chat.chat_id?._id} selectedChat={selectedChat} user={user} setSelectedChat={setSelectedChat} ></ContactComponent>
                                     </div>
                                 ))}
                             </div>
@@ -355,7 +363,7 @@ export default function Chat() {
                         <>
                             <div className="conversation">
 
-                                <ChatInfo onlinePeople={onlinePeople} selectedChat={selectedChat} filesPath={filesPath} setSelectedChat={setSelectedChat} setChatFiles={setChatFiles} setImageGallery={setImageGallery} setChatSettings={setChatSettings}></ChatInfo>
+                                <ChatInfo onlinePeople={onlinePeople} selectedChat={selectedChat} setSelectedChat={setSelectedChat} setChatFiles={setChatFiles} setImageGallery={setImageGallery} setChatSettings={setChatSettings}></ChatInfo>
                                 <div className='messages px-3'>
                                     {
 
@@ -406,7 +414,7 @@ export default function Chat() {
                             </div>
                             {(chatSettings) && (
 
-                                <ChatSettings selectedChat={selectedChat} setChatSettings={setChatSettings} filesPath={filesPath}  setImagePreview={setImagePreview} addNickname={addNickname}></ChatSettings>
+                                <ChatSettings selectedChat={selectedChat} setChatSettings={setChatSettings} setImagePreview={setImagePreview} addNickname={addNickname}></ChatSettings>
                             )}
                         </>
                     ) : (

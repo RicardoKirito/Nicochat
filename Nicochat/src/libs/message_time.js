@@ -30,9 +30,3 @@ export function DateTime(time){
 
 
 }
-
-export function getFileDate(filename){
-    const code = parseInt(filename.substring(10, 23));
-    return lastMessageAgo(new Date(code))
-
-}

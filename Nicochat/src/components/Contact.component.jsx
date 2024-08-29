@@ -1,10 +1,9 @@
 import { useChat } from "../context/ChatContext";
 import { showMenu } from "../libs/Show_menu";
 import { Menu } from "./Menu.component";
-import deleted_icon from '../assets/deleted.svg'
 import { DateTime } from "../libs/message_time";
 export function ContactComponent(props){
-    const {chat, chats, id, selectedChat, setSelectedChat, user, filesPath} = props
+    const {chat, chats, id, selectedChat, setSelectedChat, user} = props
     const {deleteChat, editChat} =useChat()
     const menuOptions = [];
     menuOptions.push({name: "Delete chat", action(e){
@@ -38,7 +37,7 @@ export function ContactComponent(props){
                 <div style={{display:"flex"}}>    
                     <div className="avatar">
                         {(chat?.userid?.picture || chat?.picture)&&(
-                            <img src={`${filesPath}/profile/${chat?.userid?.picture || chat?.picture}`} alt={chat.username} />
+                            <img src={chat?.userid?.picture || chat?.picture} alt={chat.username} />
                         )}
                     </div>
                     <div className="chat-info">

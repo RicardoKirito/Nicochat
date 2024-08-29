@@ -15,7 +15,7 @@ const MessageSchecma = new mongoose.Schema({
         type: String,
         require: true,
     }, 
-    file: String,
+    file: {type: mongoose.Schema.Types.ObjectId, require: true, ref: 'Img'},
     state: {
         type: String, 
         require: true

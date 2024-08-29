@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import close_icon from '../assets/close.svg'
-import { getFileDate } from '../libs/message_time';
+import { lastMessageAgo } from '../libs/message_time';
 export function GalleryComponent(props){
 
-    const {files, showGallery, filepath, chatid, setImage} = props;
+    const {files, showGallery, chatid, setImage} = props;
     const DateGrup = useRef(null)
     const f = [...files]
 
@@ -22,11 +22,11 @@ export function GalleryComponent(props){
                         <h5 className="card-title">Gallery</h5>
                         <div className="grid">
                             {f.length>0?
-                                f.reverse().map((filename, i)=>(
+                                f.reverse().map((imgObj, i)=>(
                                     <>
-                                        {(DateGrup.current !== getFileDate(filename)) && (<h3 key={i+2}>{DateGrup.current = getFileDate(filename)}</h3>)}
-                                            <div key={i} style={{maxWidth: "15rem", height:"15rem"}} onClick={e=>setImage(`${filepath}chat/${chatid}/${filename}`)}>
-                                                <img src={`${filepath}chat/${chatid}/${filename}`} alt={filename} />
+                                        {(DateGrup.current !== lastMessageAgo(new Date(imgObj?.createdAt))) && (<h3 key={i+2}>{DateGrup.current = lastMessageAgo(new Date(imgObj?.createdAt))}</h3>)}
+                                            <div key={i} style={{maxWidth: "15rem", height:"15rem"}} onClick={e=>setImage(imgObj.img)}>
+                                                <img src={imgObj.img} />
                                             </div>
                                         
                                     </>

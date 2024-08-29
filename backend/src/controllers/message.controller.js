@@ -1,26 +1,38 @@
 import Message from "../models/message.model.js";
 import userModel from "../models/user.model.js";
 import Chat from "../models/chat.model.js";
-import { deleteFile } from "../libs/uploadFile.js";
-import { updateChat } from "./chat.controller.js";
+import imgModel from "../models/img.model.js";
 
 export const getMessages = async (req, res) => {
   const messages = await Message.find({
     chatid: req.params.id,
-  });
+  }).populate({path: 'file', select: 'img'});
 
   res.json([messages]);
 };
 
 export const addMessage = async (message) => {
-  const add = await Message.create({
+
+  var add = await Message.create({
     from: message.from,
     body: message.body,
-    file: message.file,
+    file: null,
     chatid: message.chatid,
     state: message.state,
     edided: false,
   });
+ if(message.file){
+   const imgAdd = await imgModel.create({
+     folder: `chat/${message.chatid}`,
+     img: message.file,
+     messageid: add._id
+   });
+   add = await Message.updateOne(
+     { _id: add._id },
+     { $set: {file: imgAdd._id }}
+   );
+ }
+
 
   // If there is not chat on the receiver we add it
   const chat = await userModel.findOne(
@@ -51,7 +63,6 @@ export const addMessage = async (message) => {
 //Update the new messages for the receiver
 async function unreadMessages(opt, valor) {
   const count = await userModel.findOne(  { _id: opt.id, "contacts.chat_id": opt.chatid }, {'contacts.$': 1, _id: 0})
-  console.log(count)
   if(count.contacts[0].unreadMessages-1<0 && valor===-1){
 
     await userModel.updateOne(
@@ -67,17 +78,11 @@ async function unreadMessages(opt, valor) {
   } 
 }
 export const deleteMessage = async (req, res) => {
-  const hasFile = await Message.find(
-    { _id: req.params.id },
-    { file: 1, chatid: 1 }
-  );
-  if (hasFile[0].file) {
-    deleteFile(hasFile[0].file, hasFile[0].chatid);
-  }
   const deletedMessage = await Message.updateOne(
     { _id: req.params.id },
     { $set: { body: "Deleted Message", state: "deleted", file: null } }
   );
+  await imgModel.deleteOne({messageid: req.params.id})
   res.json(deletedMessage);
 };
 export const updateMessage = async (req, res) => {
