@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './config.js';
 import { addMessage } from './controllers/message.controller.js';
 import { updateUserPicture } from './controllers/auth.controller.js'; 
-import { updateUserPicture } from './controllers/auth.controller.js'; 
 import { imageOptimaze } from './libs/imgoptimaze.js';
 const server = app.listen(4000)
 console.log('server on port', 4000)
