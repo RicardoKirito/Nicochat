@@ -2,6 +2,7 @@ import { useMessage } from "../context/MessageContext";
 import deleted_icon from "../assets/deleted.svg";
 import { Menu } from "./Menu.component";
 import { showMenu } from "../libs/Show_menu";
+import { findParent } from "../libs/utils";
 
 export default function Message(props){
     const {msg, setImagePreview, user, refresh, setId, setMessage} = props; 
@@ -18,10 +19,10 @@ export default function Message(props){
         Menuoptions.push(
         {name: "Edit", action(e){
         if(msg._id){
-            const menu = e.target.parentElement.parentElement;
+            const menu = findParent(e.target, 'menu');
             menu.style.scale="0";
             setId(msg._id);
-            setMessage(menu.parentElement.parentElement.querySelector(".message-b")?.textContent)
+            setMessage(findParent(e.target, 'parent').querySelector(".message-b")?.textContent)
         }
         }})
     }
@@ -32,7 +33,7 @@ export default function Message(props){
                 refresh(msg._id, "Deleted Message", "deleted");
                 e.stopPropagation();
             }
-                e.target.parentElement.parentElement.parentElement.style.scale="0";
+               findParent(e.target, 'menu').style.scale="0";
             }
     })
 
@@ -51,7 +52,7 @@ export default function Message(props){
                     </div>
                 )}
 
-                <div>
+                <div style={{display: "flex"}}>
                     {(msg.body) && (
                         <p className="message-b"><span>{(msg.state==="deleted") && (<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10l4 4m0 -4l-4 4" /><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /></svg>)}</span>{msg.body}</p>
                     )}
@@ -65,7 +66,9 @@ export default function Message(props){
                     )}
                 </div>
                 <p className="time">
-                    {new Date(msg.createdAt).toLocaleTimeString([],{hour:"numeric", minute:"2-digit", hour12:true})}<span className="edited">{msg.edited === true?"edited ": ""}</span> <span className="state">{user.id === msg.from? msg.state : ''}</span>
+                    {new Date(msg.createdAt).toLocaleTimeString([],{hour:"numeric", minute:"2-digit", hour12:true})}
+                    <span className={(msg.edited === true)?"edited": "noedited"}>{(msg.edited === true) ? "Edited" : ""}</span>
+                    <span className="state">{user.id === msg.from? msg.state : ''}</span>
                 </p>
             </div>
 

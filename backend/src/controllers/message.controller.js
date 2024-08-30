@@ -82,7 +82,7 @@ async function unreadMessages(opt, valor) {
 export const deleteMessage = async (req, res) => {
   const deletedMessage = await Message.updateOne(
     { _id: req.params.id },
-    { $set: { body: "Deleted Message", state: "deleted", file: null } }
+    { $set: { body: "Deleted Message", state: "deleted", file: null, edited: false } }
   );
   await imgModel.deleteOne({messageid: req.params.id})
   res.json(deletedMessage);

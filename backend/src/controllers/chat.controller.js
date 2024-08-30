@@ -17,36 +17,64 @@ export const getAllChatFiles = async (req, res)=>{
     res.json(list)
     
 }
-export const createChat = async (req, res)=>{
+export const createChat = async (req, res) => {
     const myId = req.user.id,
-
-    {userid, username, code } = req.body;
-
-    let chat = await chatModel.findOne({code:code || myId > userid? `${myId}${userid}`:`${userid}${myId}`})
-    
-    if(!chat){
-        chat = await chatModel.create({
-            users: [myId, userid],
-            code: code || myId > userid? `${myId}${userid}`:`${userid}${myId}` ,
-        })
+      { userid, username, code } = req.body;
+  
+    let chat = await chatModel.findOne({
+      code: code || myId > userid ? `${myId}${userid}` : `${userid}${myId}`,
+    });
+  
+    if (!chat) {
+      chat = await chatModel.create({
+        users: [myId, userid],
+        code: code || myId > userid ? `${myId}${userid}` : `${userid}${myId}`,
+      });
     }
-    const user =await userModel.findOne({_id:myId, 'contacts.chat_id': chat._id})
-    if(!user){
-    await userModel.updateOne(
-        {_id: myId}, {$addToSet: { contacts: 
-            {
-                chat_id: chat._id,
-                userid: chat.users[1],
-                username: username,
-                nickname: '',
-                blocked: false
-            }
-            }
+  
+    const user = await userModel.findOne({
+      _id: myId,
+      "contacts.chat_id": chat._id,
+    });
+    const contact = await userModel.findOne({
+      _id: userid,
+      "contacts.chat_id": chat._id,
+    });
+  
+    if (!user) {
+      await userModel.updateOne(
+        { _id: myId },
+        {
+          $addToSet: {
+            contacts: {
+              chat_id: chat._id,
+              userid: userid,
+              username: username,
+              nickname: "",
+              blocked: false,
+            },
+          },
         }
-    )
+      );
+    }
+    if (!contact) {
+      await userModel.updateOne(
+        { _id: userid },
+        {
+          $addToSet: {
+            contacts: {
+              chat_id: chat._id,
+              userid: req.user.id,
+              username: req.user.username,
+              nickname: "",
+              blocked: false,
+            },
+          },
+        }
+      );
     }
     res.json(chat);
-}
+  };
 
 export const searchChat = async(req, res)=>{
 

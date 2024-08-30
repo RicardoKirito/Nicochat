@@ -518,6 +518,16 @@
     font-size: 0.7rem;
     text-align: right;
 }
+.chatContainer .right .conversation .messages .my-message .edited{
+    position: absolute;
+    display: block;
+    top: -9px;
+    right: 2px;
+    border-radius: 20px;
+    background-color: #abc;
+    color: #444;
+    padding: 2px;
+}
 
 .chatContainer .right .conversation .messages .my-message {
     background-color: rgb(var(--higthlightL), 0.85);
@@ -526,16 +536,22 @@
     color: rgb(var(--color5));
 }
 
-.chatContainer .right .conversation .messages .my-message div {
-    display: flex;
-}
-
 .chatContainer .right .conversation .messages .my-message .time {
     text-align: end;
 }
 
 .chatContainer .right .conversation .messages .my-message:hover .elipsis-mn {
     scale: 1;
+}
+.chatContainer .right .conversation .messages .contact-message .edited{
+    position: absolute;
+    display: block;
+    top: -9px;
+    left: 2px;
+    border-radius: 20px;
+    background-color: #abc;
+    color: #444;
+    padding: 2px;
 }
 
 .chatContainer .right .conversation .messages .contact-message {

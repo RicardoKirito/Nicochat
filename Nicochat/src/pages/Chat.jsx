@@ -38,6 +38,7 @@ export default function Chat() {
     const [ChatFiles, setChatFiles] = useState([])
     const [chatSettings, setChatSettings] = useState(null);
     const Obv = useRef(null);
+    const selectedChatRef = useRef(null)
 
     function getAllChatMessages(id) {
         getMessages(id).then(res => {
@@ -54,6 +55,7 @@ export default function Chat() {
             getAllChatMessages(selectedChat.id)
         }
         setChatSettings(null)
+        selectedChatRef.current = selectedChat
     }, [selectedChat])
 
     function scrollToLastMessage(behavior="instant"){
@@ -114,7 +116,10 @@ export default function Chat() {
                 showOnlinePeople(messageData)
             }
             else if ('from' in messageData) {
-                setMessages(prev => [...prev, messageData])
+                if(messageData.chatid === selectedChatRef.current.id){
+
+                    setMessages(prev => [...prev, messageData])
+                }
                 
                 
             } else if ('newMessage' in messageData) {
@@ -132,14 +137,19 @@ export default function Chat() {
                     }
                     const state = container.querySelector(".state")
                     const edited = container.querySelector(".edited")
+                    const noedited = container.querySelector(".noedited")
                     const img = container.querySelector(".file")
                     switch (messageData.state) {
                         case "deleted":
                             if (messageData.state === "deleted") {
+                                if(edited){
+                                    edited.classList.remove('edited');
+                                    edited.textContent ="";
+                                }
                                 if (img) container.removeChild(img);
                                 state.textContent = messageData.state
                                 const elipsisMn = container.querySelector(".elipsis-mn")
-                                if (messageuptaded) messageuptaded.innerHTML = `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10l4 4m0 -4l-4 4" /><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /></svg>> ${messageData.body || messageuptaded.textContent}`;
+                                if (messageuptaded) messageuptaded.innerHTML = `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10l4 4m0 -4l-4 4" /><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /></svg> ${messageData.body || messageuptaded.textContent}`;
                                 elipsisMn.parentElement.removeChild(elipsisMn)
                             }
                             break;
@@ -155,9 +165,12 @@ export default function Chat() {
                             break
                         case true:
                             if (messageuptaded) messageuptaded.textContent = messageData.body || messageuptaded.textContent;
-                            edited.textContent = "edited ";
+                            if(noedited){
+                                noedited.classList.add('edited');
+                                noedited.classList.remove('noedited');
+                                noedited.textContent = "Edited"
+                            }
                             break;
-
                     }
                 }
                 setTimeout(() => {
@@ -232,7 +245,6 @@ export default function Chat() {
                         console.log("reconectiong")
                         connectToServer();
                     }, 5000)
-                    clearTimeout(timer);
                     messageHandler(e)
                 })
             }
@@ -283,7 +295,7 @@ export default function Chat() {
     }
     async function addToChat(user) {
         const chat = await addChat({ userid: user._id, username: user.username })
-        setSelectedChat({ id: chat._id, username: user.username, to: user.id, picture: user.picture,email: user.email })
+        setSelectedChat({ id: chat._id, username: user.username, to: user._id, picture: user.picture,email: user.email })
         Chats()
     }
     async function Chats() {

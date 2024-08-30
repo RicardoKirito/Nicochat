@@ -2,24 +2,25 @@ import { useChat } from "../context/ChatContext";
 import { showMenu } from "../libs/Show_menu";
 import { Menu } from "./Menu.component";
 import { DateTime } from "../libs/message_time";
+import { findParent } from "../libs/utils";
 export function ContactComponent(props){
     const {chat, chats, id, selectedChat, setSelectedChat, user} = props
     const {deleteChat, editChat} =useChat()
     const menuOptions = [];
     menuOptions.push({name: "Delete chat", action(e){
         if(id){
-            deleteChat(id); 
-            setTimeout(()=>{
-
-                if(id === selectedChat.id){
-                    chats();
-                    setSelectedChat([])
-                }
-
-            }, 500)
-            e.stopPropagation()
+            const deleted = async()=> await deleteChat(id); 
+            console.log(deleted())
+             if(selectedChat.id === id) {
+                 setSelectedChat({})
+             }
+             setTimeout(()=>{
+                 chats()
+ 
+             }, 500)
+             e.stopPropagation()
         }
-        e.target.parentElement.parentElement.parentElement.style.scale="0";
+       findParent(e.target, 'menu').style.scale="0";
     }})
     menuOptions.push({name: "Block chat", action(e){
         if(id){
@@ -28,7 +29,7 @@ export function ContactComponent(props){
             e.stopPropagation()
 
         }
-        e.target.parentElement.parentElement.parentElement.style.scale="0";
+       findParent(e.target, 'menu').style.scale="0";
         
     }})
     return(
